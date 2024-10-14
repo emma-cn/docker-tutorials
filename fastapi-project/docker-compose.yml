@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend  # Path to backend Dockerfile
+    ports:
+      - "8000:8000"  # Expose FastAPI on port 8000
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend  # Path to frontend Dockerfile
+    ports:
+      - "8080:80"  # Expose frontend on port 8080
+    depends_on:
+      - backend  # Ensure backend starts first
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+    
