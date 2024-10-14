@@ -6,6 +6,10 @@ services:
       context: ./backend  # Path to backend Dockerfile
     ports:
       - "8000:8000"  # Expose FastAPI on port 8000
+    working_dir: /home/workspace
+    volumes:
+      - ${PWD}:/home/workspace
+    
     networks:
       - app-network
 
@@ -14,6 +18,9 @@ services:
       context: ./frontend  # Path to frontend Dockerfile
     ports:
       - "8080:80"  # Expose frontend on port 8080
+    working_dir: /home/workspace
+    volumes:
+      - ${PWD}:/home/workspace
     depends_on:
       - backend  # Ensure backend starts first
     networks:
